@@ -1,0 +1,1399 @@
+// --------------------------------
+
+// Custom Style - your bespoke style
+
+
+
+/* -------------------------------- 
+
+File#: _1_header
+Title: Main Header
+Descr: Accessible website navigation
+Usage: codyhouse.co/license
+
+-------------------------------- */
+
+
+//////////////////////////////////////////////header/////////////////////////////////////////////
+:root {
+    --header-height: 50px;
+  
+    @include breakpoint(md) {
+      --header-height: 70px;
+    }
+  }
+  
+  .header {
+    height: var(--header-height);
+    width: 100%;
+    background-color: var(--color-bg);
+    z-index: var(--zindex-header);
+  }
+  
+  //.header--expanded {
+    // class added when navigation is visible - small devices only
+  //}
+  
+  .header__container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  // logo
+  .header__logo {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  
+    a, svg, img {
+      display: block;
+    }
+  }
+  
+  // nav
+  .header__nav {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100vh;
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow-md);
+    overflow: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    font-size: 1.25em; // controls the font-size of all elements (sm)
+  
+    display: none;
+  
+    &::before { // top header bg + border
+      content: '';
+      display: block;
+      position: sticky;
+      top: 0;
+      height: var(--header-height);
+      background: inherit;
+      border-bottom: 1px solid var(--color-contrast-low);
+    }
+  }
+  
+  .header__nav--is-visible {
+    display: block;
+  }
+  
+  .header__nav-inner {
+    padding: var(--space-sm) var(--component-padding) var(--component-padding);
+  }
+  
+  .header__label { // menu label
+    font-size: var(--text-sm);
+    color: var(--color-contrast-medium);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .header__item { // nav list item
+    margin-bottom: var(--space-sm);
+  }
+  
+  .header__link { // link within list item
+    color: var(--color-contrast-higher);
+    text-decoration: none;
+  
+    &:hover, &[aria-current] { // style of :hover + selected link
+      color: var(--color-primary);
+    }
+  }
+  
+  .header__item--divider { // element used to separate nav items
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-contrast-low);
+  }
+  
+  // menu trigger
+  .header__trigger { // menu button
+    position: relative;
+    z-index: 2;
+  }
+  
+  // menu icon
+  .header__trigger-icon {
+    position: relative;
+    display: block;
+    height: 2px;
+    width: 1em;
+    background-color: currentColor;
+    margin-right: var(--space-xxs);
+    transition: 0.2s;
+  
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: inherit;
+      height: inherit;
+      background-color: currentColor;
+      transition: 0.2s;
+    }
+  
+    &::before {
+      transform: translateY(-5px);
+    }
+  
+    &::after {
+      transform: translateY(5px);
+    }
+  }
+  
+  .header__trigger[aria-expanded="true"] .header__trigger-icon {
+    background-color: transparent;
+  
+    &::before {
+      transform: rotate(45deg);
+    }
+  
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+  
+  @include breakpoint(md) {
+    .header__nav {
+      // reset
+      position: static;
+      background-color: transparent;
+      width: auto;
+      max-height: none;
+      box-shadow: none;
+      overflow: visible;
+      overscroll-behavior: auto;
+      display: block;
+  
+      font-size: 0.875em; // controls the font-size of all elements (md)
+  
+      &::before {
+        display: none;
+      }
+    }
+  
+    .header__nav-inner {
+      padding: 0; // reset
+    }
+  
+    .header__label { // hide label
+      @include srHide;
+    }
+  
+    .header__list {
+      display: flex;
+      align-items: center;
+    }
+  
+    .header__item {
+      display: inline-block; // flex fallback
+      margin-bottom: 0;
+      margin-left: var(--space-md);
+    }
+  
+    .header__item--divider {
+      height: 1em;
+      width: 1px;
+    }
+  
+    .header__trigger {
+      display: none;
+    }
+  }
+  
+  // no JS fallback
+  html:not(.js) {
+    .header {
+      height: auto;
+      padding-top: var(--space-xs);
+    }
+  
+    .header__trigger {
+      display: none;
+    }
+  
+    .header__container {
+      display: block;
+    }
+  
+    .header__nav {
+      position: static;
+      height: auto;
+      padding: 0;
+      box-shadow: none;
+      overflow: visible;
+      display: block;
+  
+      &::before {
+        display: none;
+      }
+    }
+  
+    .header__nav-inner { 
+      position: static;
+      height: auto;
+      padding: var(--space-md) 0;
+      overflow: visible;
+    }
+  
+    @include breakpoint(md) {
+      .header {
+        height: var(--header-height);
+        padding: 0;
+      }
+  
+      .header__container {
+        display: flex;
+      }
+    }
+  }
+//fin header
+
+/////////////////////////////////////////////footer//////////////////////////////////////////////
+
+/* -------------------------------- 
+
+File#: _1_main-footer
+Title: Main Footer
+Descr: Footer navigation
+Usage: codyhouse.co/license
+
+-------------------------------- */
+
+.main-footer {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .main-footer__logo {
+    flex-shrink: 0;
+    width: 104px; // logo width
+    height: 30px; // logo height
+    display: block;
+  
+    svg, img {
+      display: block;
+      width: inherit;
+      height: inherit;
+    }
+  }
+  
+  .main-footer__item {
+    margin-top: var(--space-xs);
+  }
+  
+  .main-footer__link {
+    color: var(--color-contrast-medium);
+    text-decoration: none;
+  
+    &:hover {
+      color: var(--color-contrast-high);
+    }
+  }
+  
+  // colophon
+  .main-footer__colophon {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .main-footer__social {
+    text-decoration: none;
+    display: inline-block;
+    color: var(--color-contrast-medium);
+  
+    &:hover {
+      color: var(--color-contrast-high);
+    }
+  }
+
+  
+  @include breakpoint(md) {
+    .main-footer__legend {
+      font-size: var(--text-base);
+    }
+    
+    .main-footer__item {
+      font-size: 0.9em;
+    }
+  }
+//fin footer
+
+////////////////////////////////////////carousel////////////////////////////////////////////
+
+/* -------------------------------- 
+
+File#: _2_carousel
+Title: Carousel
+Descr: Display and cycle through a collection of items
+Usage: codyhouse.co/license
+
+-------------------------------- */
+
+:root {
+    --carousel-grid-gap: var(--space-xs);
+    --carousel-item-auto-size: 260px; // min-width value -> used in JS to auto update the carousel items width
+    --carousel-transition-duration: 0.5s;
+  }
+  
+  .carousel {
+    position: relative;
+  }
+  
+  .carousel__list {
+    display: flex;
+    flex-wrap: nowrap;
+    will-change: transform;
+  }
+  
+  .carousel__item {
+    flex-shrink: 0;
+    width: var(--carousel-item-auto-size); 
+    margin-right: var(--carousel-grid-gap);
+    margin-bottom: var(--carousel-grid-gap);
+  }
+  
+  .js {
+    .carousel__list--animating {
+      transition-property: transform;
+      transition-duration: var(--carousel-transition-duration);
+      transition-timing-function: var(--ease-out);
+    }
+  
+    .carousel__item { // hide items while the carousel is initialized in JS
+      opacity: 0;
+      margin-bottom: 0;
+    }
+  
+    .carousel--loaded .carousel__item { // reveal items
+      opacity: 1;
+    }
+  
+    .carousel:not(.carousel--is-dragging) .carousel__list:not(.carousel__list--animating) .carousel__item[tabindex="-1"] > * {
+      visibility: hidden; // hide content of off-canvas items so that they are not focusable 
+    }
+  
+    .carousel[data-drag="on"] .carousel__item { // if drag = enabled
+      user-select: none;
+  
+      img {
+        pointer-events: none;
+      }
+    }
+  }
+  
+  .carousel__control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-bg);
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    z-index: 1;
+    transition: .2s;
+  
+    &:active {
+      transform: translateY(1px);
+    }
+  
+    &:hover {
+      box-shadow: var(--shadow-md);
+    }
+  
+    &[disabled] {
+      pointer-events: none;
+      background-color: var(--color-contrast-lower);
+      color: var(--color-contrast-low);
+      box-shadow: none;
+    }
+  
+    .icon {
+      display: block;
+      font-size: 20px; // icon size
+    }
+  }
+   
+  // carousel dots navigation
+  .carousel__navigation { // created in JS
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 10px); // = button size 👇
+    gap: var(--space-xs); // gap among dots
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--space-sm);
+  }
+  
+  .carousel__nav-item {
+    display: inline-block; // grid fallback
+    margin: 0 var(--space-xxxs);
+  
+    @supports (grid-area: auto) {
+      margin: 0;
+    }
+  
+    button { // dot
+      display: block;
+      position: relative;
+      font-size: 10px; // ⚠️ button size
+      height: 1em;
+      width: 1em;
+      border-radius: 50%;
+      background-color: var(--color-contrast-high);
+      opacity: 0.4;
+      cursor: pointer;
+      transition: background .3s;
+  
+      &::before { // focus circle
+        content: '';
+        position: absolute;
+        top: calc(50% - 0.5em);
+        left: calc(50% - 0.5em);
+        font-size: 16px; // focus circle size
+        height: 1em;
+        width: 1em;
+        border-radius: inherit;
+        border: 1px solid var(--color-contrast-high);
+        opacity: 0;
+        transform: scale(0);
+        transition: 0.3s;
+      }
+      
+      &:focus {
+        outline: none;
+        
+        &::before {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+  }
+  
+  .carousel__nav-item--selected button {
+    opacity: 1;
+  }
+  
+  // --pagination
+  .carousel__navigation--pagination {
+    grid-template-columns: repeat(auto-fit, minmax(24px, auto));
+  
+    .carousel__nav-item button {
+      width: 100%;
+      height: auto;
+      color: var(--color-bg);
+      font-size: var(--text-xs);
+      padding: var(--space-xxxs) var(--space-xxs);
+      border-radius: var(--radius-md);
+      text-align: center;
+  
+      &:focus {
+        outline: 1px solid var(--color-primary);
+        outline-offset: 2px;
+      }
+    }
+  }
+  
+  html:not(.js) .carousel__list {
+    overflow: auto;
+  }
+//fin carousel
+
+/////////////////////////////////////////////sidebar//////////////////////////////////////////
+/* -------------------------------- 
+
+File#: _1_responsive-sidebar
+Title: Responsive Sidebar
+Descr: Responsive sidebar container
+Usage: codyhouse.co/license
+
+-------------------------------- */
+
+// mobile version only (--default) 👇
+.sidebar:not(.sidebar--static) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--zindex-fixed-element);
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  transition: visibility 0s .3s;
+
+  &::after { // overlay layer
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: alpha(var(--color-black), 0);
+    transition: background-color .3s;
+    z-index: 1;
+  }
+
+  .sidebar__panel { // content
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--color-bg);
+    transform: translateX(-100%);
+    transition: .3s;
+  }
+
+  &.sidebar--right-on-mobile {
+    .sidebar__panel {
+      left: auto;
+      right: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  &.sidebar--is-visible {
+    visibility: visible;
+    transition: none;
+    
+    &::after {
+      background-color: alpha(var(--color-black), 0.85);
+    }
+
+    .sidebar__panel {
+      transform: translateX(0);
+      box-shadow: var(--shadow-md);
+    }
+  }
+}
+// end mobile version
+
+.sidebar__header {
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 2px solid var(--color-contrast-lower);
+  position: sticky;
+  top: 0;
+}
+
+.sidebar__close-btn {
+  width: 2em;
+  height: 2em;
+  display: flex;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-sm);
+  transition: .2s;
+  flex-shrink: 0;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .icon {
+    display: block;
+    color: var(--color-contrast-high);
+    margin: auto;
+  }
+}
+
+// desktop version only (--static) 👇
+.sidebar--static, html:not(.js) .sidebar {
+  flex-shrink: 0;
+  flex-grow: 1;
+
+  .sidebar__header {
+    display: none;
+  }
+}
+
+.sidebar--sticky-on-desktop {
+  position: sticky;
+  top: var(--space-sm);
+  max-height: calc(100vh - var(--space-sm));
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+// end desktop version
+
+.js {
+  .sidebar {
+    opacity: 0; // hide sidebar while it is initialized in JS
+  }
+
+  .sidebar--loaded {
+    opacity: 1;
+  }
+}
+
+// no-js
+html:not(.js) .sidebar {
+  position: static;
+}
+
+// detect when the sidebar needs to switch from the mobile layout to a static one - used in JS
+[class*="sidebar--static"]::before {
+  display: none;
+}
+
+@each $breakpoint, $value in $breakpoints {
+  .sidebar--static\@#{$breakpoint}::before {
+    content: 'mobile';
+    @include breakpoint(#{$breakpoint}) {
+      content: 'static';
+    }
+  }
+}
+//fin sidebar
+
+/////////////////////////////////////////////modal/////////////////////////////////////////////
+/* -------------------------------- 
+
+File#: _1_modal-window
+Title: Modal Window
+Descr: A modal dialog used to display critical information
+Usage: codyhouse.co/license
+
+-------------------------------- */
+
+.modal {
+  position: fixed;
+  z-index: var(--zindex-overlay);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+
+  &:not(.modal--is-visible) {
+    pointer-events: none;
+    background-color: transparent;
+  }
+}
+
+.modal--is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__content {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  max-height: 100%;
+}
+
+// close button
+.modal__close-btn {
+  display: flex;
+  flex-shrink: 0;
+  border-radius: 50%;
+  transition: .2s;
+
+  .icon {
+    display: block;
+    margin: auto;
+  }
+}
+
+.modal__close-btn--outer { // close button - outside the modal__content
+  width: 3.2em;
+  height: 3.2em;
+  position: fixed;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: var(--zindex-fixed-element);
+  background-color: alpha(var(--color-contrast-higher), 0.8);
+
+  &:hover {
+    background-color: var(--color-contrast-higher);
+  }
+
+  .icon {
+    color: var(--color-bg); // icon color
+  }
+}
+
+.modal__close-btn--inner { // close button - inside the modal__content
+  width: 2em;
+  height: 2em;
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-sm);
+
+  .icon {
+    color: inherit; // icon color
+  }
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// animations
+:root {
+  --modal-transition-duration: 0.2s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .modal--animate-fade {
+    --modal-transition-duration: 0.2s;
+    transition: opacity var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s var(--modal-transition-duration);
+
+    &.modal--is-visible {
+      transition: opacity var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s;
+    }
+  }
+
+  .modal--animate-scale,
+  .modal--animate-translate-up,
+  .modal--animate-translate-down,
+  .modal--animate-translate-right,
+  .modal--animate-translate-left {
+    --modal-transition-duration: 0.2s;
+    transition: opacity var(--modal-transition-duration), visibility 0s var(--modal-transition-duration);
+
+    .modal__content {
+      will-change: transform;
+      transition: transform var(--modal-transition-duration) var(--ease-out);
+    }
+
+    &.modal--is-visible {
+      transition: opacity var(--modal-transition-duration), visibility 0s;
+
+      .modal__content {
+        transform: scale(1); // reset all transformations
+      }
+    }
+  }
+
+  .modal--animate-slide-up,
+  .modal--animate-slide-down,
+  .modal--animate-slide-right,
+  .modal--animate-slide-left {
+    --modal-transition-duration: 0.3s;
+    transition: opacity 0s var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s var(--modal-transition-duration);
+
+    .modal__content {
+      will-change: transform;
+      transition: transform var(--modal-transition-duration) var(--ease-out);
+    }
+
+    &.modal--is-visible {
+      transition: background-color var(--modal-transition-duration), visibility 0s;
+
+      .modal__content {
+        transform: scale(1); // reset all transformations
+      }
+    }
+  }
+
+  // scale
+  .modal--animate-scale {
+    .modal__content {
+      transform: scale(0.95);
+    }
+  }
+
+  // translate
+  .modal--animate-translate-up {
+    .modal__content {
+      transform: translateY(40px);
+    }
+  }
+
+  .modal--animate-translate-down {
+    .modal__content {
+      transform: translateY(-40px);
+    }
+  }
+
+  .modal--animate-translate-right {
+    .modal__content {
+      transform: translateX(-40px);
+    }
+  }
+
+  .modal--animate-translate-left {
+    .modal__content {
+      transform: translateX(40px);
+    }
+  }
+
+  // slide
+  .modal--animate-slide-up {
+    .modal__content {
+      transform: translateY(100%);
+    }
+  }
+
+  .modal--animate-slide-down {
+    .modal__content {
+      transform: translateY(-100%);
+    }
+  }
+
+  .modal--animate-slide-right {
+    .modal__content {
+      transform: translateX(-100%);
+    }
+  }
+
+  .modal--animate-slide-left {
+    .modal__content {
+      transform: translateX(100%);
+    }
+  }
+}
+
+// load content - optional
+.modal--is-loading {
+  .modal__content {
+    visibility: hidden;
+  }
+
+  .modal__loader {
+    display: flex;
+  }
+}
+
+.modal__loader { // loader icon
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  pointer-events: none;
+}
+//fin modal
+
+/////////////////////////////////////////////social////////////////////////////////////////////
+/* -------------------------------- 
+
+File#: _1_socials
+Title: Socials
+Descr: Section with links to social media accounts
+Usage: codyhouse.co/license
+
+-------------------------------- */
+
+.socials__btns {
+  li {
+    display: inline-block; // flex fallback
+  }
+
+  a {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    display: block; // flex fallback
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--color-contrast-high);
+    color: var(--color-bg);
+    transition: background-color .2s, color .2s;
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+
+      .icon {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .icon {
+    font-size: 1.25em; // icon size
+    transition: transform .2s var(--ease-out);
+  }
+}
+//fin socials
+
+
+/////////////////////////////////////////////slideshow///////////////////////////////////////
+/* -------------------------------- 
+
+File#: _2_slideshow
+Title: Slideshow
+Descr: Show a collection of items one at a time
+Usage: codyhouse.co/license
+
+-------------------------------- */
+:root {
+  --slideshow-height: 280px;
+
+  // transitions
+  --slideshow-fade-transition-duration: 0.25s; // fade effect transition duration
+  --slideshow-slide-transition-duration: 0.35s; // slide effect transition duration
+  --slideshow-prx-transition-duration: 0.5s; // parallax effect transition duration
+
+  // controls
+  --slideshow-btn-width: 1.6em; 
+  --slideshow-btn-height: 3.2em;
+  --slideshow-btn-icon-size: 1.6em;
+  --slideshow-btn-offset: var(--space-xs); // gap between button and slideshow edges
+
+  @include breakpoint(sm) {
+    --slideshow-height: 380px;
+  }
+
+  @include breakpoint(md) {
+    --slideshow-height: 480px;
+  }
+
+  @include breakpoint(lg) {
+    --slideshow-height: 580px;
+  }
+}
+
+// slide
+.slideshow__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--slideshow-height);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// set a fixed ratio for the slides
+.slideshow--ratio-16\:9 .slideshow__item { 
+  height: 0;
+  padding-bottom: 56.25%; // 16:9 aspect ratio
+}
+
+.slideshow--ratio-4\:3 .slideshow__item { 
+  height: 0;
+  padding-bottom: 75%; // 4:3 aspect ratio
+}
+
+.slideshow--ratio-1\:1 .slideshow__item { 
+  height: 0;
+  padding-bottom: 100%; // 1:1 aspect ratio
+}
+
+// slideshow basic style
+.js {
+  .slideshow {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .slideshow__content {
+    overflow: hidden;
+  }
+
+  .slideshow__item {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+  }
+
+  .slideshow__item--selected {
+    position: relative;
+    z-index: 3;
+    visibility: visible;
+  }
+}
+
+// fade-in animation
+.js {
+  .slideshow--transition-fade .slideshow__item {
+    opacity: 0;
+    transition: opacity 0s var(--slideshow-fade-transition-duration), visibility 0s var(--slideshow-fade-transition-duration);
+  }
+  
+  .slideshow--transition-fade .slideshow__item--selected {
+    opacity: 1;
+    transition: opacity var(--slideshow-fade-transition-duration);
+  }
+}
+
+// slide-in animation
+.js {
+  .slideshow--transition-slide .slideshow__item {
+    animation-duration: var(--slideshow-slide-transition-duration);
+    animation-fill-mode: forwards;
+    animation-timing-function: var(--ease-out);
+  
+    > * { // hide content of not-visible items so that they are not focusable 
+      visibility: hidden;
+    }
+  } 
+  
+  .slideshow--transition-slide .slideshow__item--selected > * { // show content of selected item 
+    visibility: visible;
+  }
+  
+  .slideshow--transition-slide .slideshow__item--slide-in-left { // visible item - enter from left to right
+    animation-name: slide-in-left;
+  }
+  
+  .slideshow--transition-slide .slideshow__item--slide-in-right { // visible item - enter from right to left
+    animation-name: slide-in-right;
+  }
+  
+  .slideshow--transition-slide .slideshow__item--slide-out-left { // leaving item - leave from left to right
+    animation-name: slide-out-left;
+  }
+  
+  .slideshow--transition-slide .slideshow__item--slide-out-right { // leaving item - leave from right to left
+    animation-name: slide-out-right;
+  }
+  
+  .slideshow--transition-slide .slideshow__item--slide-out-left, 
+  .slideshow--transition-slide .slideshow__item--slide-out-right {
+    z-index: 2;
+  
+    &.slideshow__item--selected {
+      z-index: 3; // fix bug on browsers not supporting CSS animations
+    }
+  
+    > * {
+      visibility: visible;
+    }
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    visibility: visible;
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    visibility: visible;
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-out-right {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+// parallax animation 
+.js {
+  .slideshow--transition-prx .slideshow__item {
+    animation-duration: var(--slideshow-prx-transition-duration);
+    animation-fill-mode: forwards;
+    animation-timing-function: var(--ease-out);
+  
+    > * { // hide content of not-visible items so that they are not focusable 
+      visibility: hidden;
+    }
+  } 
+  
+  .slideshow--transition-prx .slideshow__item--selected > * { // show content of selected item 
+    visibility: visible;
+  }
+  
+  .slideshow--transition-prx .slideshow__item--prx-in-left { // visible item - enter from left to right
+    animation-name: prx-in-left;
+  }
+  
+  .slideshow--transition-prx .slideshow__item--prx-in-right { // visible item - enter from right to left
+    animation-name: prx-in-right;
+  }
+  
+  .slideshow--transition-prx .slideshow__item--prx-out-left { // leaving item - leave from left to right
+    animation-name: prx-out-left;
+  }
+  
+  .slideshow--transition-prx .slideshow__item--prx-out-right { // leaving item - leave from right to left
+    animation-name: prx-out-right;
+  }
+  
+  .slideshow--transition-prx .slideshow__item--prx-out-left, 
+  .slideshow--transition-prx .slideshow__item--prx-out-right {
+    z-index: 2;
+  
+    &.slideshow__item--selected {
+      z-index: 3; // fix bug on browsers not supporting CSS animations
+    }
+  
+    > * {
+      visibility: visible;
+    }
+  }
+}
+
+@keyframes prx-in-left {
+  0% {
+    visibility: visible;
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes prx-in-right {
+  0% {
+    visibility: visible;
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes prx-out-left {
+  0% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateX(40%);
+  }
+}
+
+@keyframes prx-out-right {
+  0% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateX(-40%);
+  }
+}
+
+
+// touch swipe enabled
+.js .slideshow[data-swipe="on"] .slideshow__content {
+  user-select: none;
+
+  img {
+    pointer-events: none;
+  }
+}
+
+// slideshow arrow controls
+.slideshow__control {
+  display: none;
+}
+
+.js {
+  .slideshow[data-controls="hover"] .slideshow__control {
+    opacity: 0; // hide arrows
+    transition: opacity .3s;
+  }
+
+  .slideshow[data-controls="hover"]:hover .slideshow__control {
+    opacity: 1; // show arrows on hover
+  }
+
+  .slideshow[data-swipe="on"] .slideshow__control {
+    display: none; // hide arrows on mobile if swipe is enabled
+  }
+
+  .slideshow__control {
+    display: block;
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    transform: translateY(-50%);
+  
+    &:first-of-type {
+      left: var(--slideshow-btn-offset);
+    }
+  
+    &:last-of-type {
+      right: var(--slideshow-btn-offset);
+    }
+  }
+
+  @include breakpoint(md) {
+    .slideshow[data-swipe="on"] .slideshow__control {
+      display: block; // show arrow controls
+    }
+  }
+}
+
+.slideshow__btn {
+  display: block;
+  background-color: alpha(var(--color-black), 0.75); // IE fallback
+  height: var(--slideshow-btn-height);
+  width: var(--slideshow-btn-width);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background .2s, transform 0.2s;
+
+  &:hover {
+    background-color: alpha(var(--color-contrast-higher), 0.85);
+
+    .icon {
+      color: var(--color-bg);
+    }
+  }
+
+  .slideshow:not(.slideshow--is-animating) &:active { // active effect
+    transform: translateY(2px);
+  }
+
+  .icon {
+    display: block;
+    width: var(--slideshow-btn-icon-size);
+    height: var(--slideshow-btn-icon-size);
+    margin: 0 auto;
+    transition: color .2s;
+    color: var(--color-white); // IE fallback
+  }
+
+  @supports (grid-area: auto) {
+    background-color: transparent; // button color
+  
+    .icon {
+      color: var(--color-contrast-higher); // icon color
+    }
+  }
+}
+
+// slideshow navigation
+.slideshow__navigation { // created in JS
+  position: absolute;
+  z-index: 4;
+  bottom: 0;
+  width: 100%;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.slideshow__nav-item {
+  display: inline-block; // flex fallback
+  margin: 0 var(--space-xxxs);
+
+  button { // dot
+    display: block;
+    position: relative;
+    font-size: 8px; // dot size
+    color: var(--color-contrast-high); // dot color
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    background-color: currentColor;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: background .3s;
+
+    &::before { // focus circle
+      content: '';
+      position: absolute;
+      top: calc(50% - 0.5em);
+      left: calc(50% - 0.5em);
+      height: 1em;
+      width: 1em;
+      font-size: 14px;
+      border-radius: inherit;
+      border: 1px solid var(--color-contrast-high);
+      opacity: 0;
+      transform: scale(0);
+      transition: 0.3s;
+    }
+    
+    &:focus {
+      outline: none;
+      
+      &::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.slideshow__nav-item--selected button {
+  opacity: 1;
+}
+
+@include breakpoint(md) {
+  .slideshow__navigation {
+    height: 40px;
+  }
+
+  .slideshow__nav-item {
+    button {
+      font-size: 10px; // dot size
+
+      &::before { // focus circle
+        font-size: 16px;
+      }
+    }
+  }
+}
+//fin slide show
+
+
+
+
+
+// --------------------------------
+
+@import 'custom-style/colors';
+@import 'custom-style/spacing';
+@import 'custom-style/shared-styles';
+@import 'custom-style/typography';
+@import 'custom-style/icons';
+@import 'custom-style/buttons';
+@import 'custom-style/forms';
